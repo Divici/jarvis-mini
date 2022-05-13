@@ -9,7 +9,7 @@ const PhoneFrame = () => {
                 <div className="absolute inset-0 h-[110px] w-full bg-gray-500 opacity-50"></div>
                 <div className="absolute inset-0 h-6 w-40 mx-auto bg-black rounded-b-3xl"></div>
                 <img className="absolute inset-10 mx-auto object-cover w-10 h-10 rounded-full"
-                src="https://cdn.pixabay.com/photo/2018/01/15/07/51/woman-3083383__340.jpg" alt="username" />
+                src="https://cdn.pixabay.com/photo/2017/03/31/23/11/robot-2192617_960_720.png" alt="username" />
                 <span className="absolute w-3 h-3 sm:bg-blue-500 bg-transparent rounded-full left-[270px] top-10"></span>
                 <h2 className="absolute inset-[85px] text-center font-normal text-xs text-white">JARVIS mini</h2>
                 
