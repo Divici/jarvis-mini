@@ -18,7 +18,7 @@ const responses = [
 
 const Messages = () => {
     return (
-        <body className={`relative w-full p-6 overflow-y-auto h-[476px] `}>
+        <div className={`relative w-full p-6 overflow-y-auto h-[476px] `}>
             {
                 prompts.map((message, i) =>(
                     <div className="flex justify-end">
@@ -46,7 +46,7 @@ const Messages = () => {
                     </div>
                 )) 
             }
-        </body>
+        </div>
     )
 }
 

@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { addPrompt } from '../actions';
+import { connect } from 'react-redux';
 import {BsFillArrowUpCircleFill} from 'react-icons/bs';
 import TextareaAutosize from 'react-textarea-autosize';
 
-const InputField = () => {
+const InputField = (props) => {
     const [prompt, setPrompt] = useState('');
 
     const handleChange = (e) => {
@@ -12,6 +14,10 @@ const InputField = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         //Send prompt axios call and push prompt to conversation state
+        props.addPrompt({
+            type: 'user',
+            message: prompt
+        })
         console.log(prompt);
         setPrompt('')
     }
@@ -29,4 +35,4 @@ const InputField = () => {
     )
 }
 
-export default InputField;
+export default connect(null, {addPrompt})(InputField);
