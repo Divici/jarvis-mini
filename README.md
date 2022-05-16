@@ -1,6 +1,8 @@
 # Jarvis mini - an OpenAI API project
 
-This is an AI assistant app named Jarvis. The assistant is helpful, creative, witty, clever and answers with friendly responses. It uses the OpenAI API with [React](https://reactjs.org/).
+### This project is a portfolio piece for job applications and is not intended for commercial use.
+This is an AI assistant app named Jarvis. The assistant is helpful, creative, witty, clever and answers with friendly responses. 
+It uses the OpenAI API with [React](https://reactjs.org/).
 
 ## Setup
 
