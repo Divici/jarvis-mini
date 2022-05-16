@@ -1,5 +1,4 @@
-//import { ADD_MOVIE, DELETE_MOVIE } from '../actions/movieActions.js';
-import { ADD_PROMPT} from '../actions';
+import { ADD_MESSAGE} from '../actions';
 
 const initialState = {
     messages: [],
@@ -7,7 +6,7 @@ const initialState = {
 
 const reducer = (state= initialState, action) => {
     switch(action.type) {
-        case ADD_PROMPT:
+        case ADD_MESSAGE:
             return {
                 ...state,
                 messages: [...state.messages, {...action.payload, id: Date.now()}]

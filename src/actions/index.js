@@ -1,5 +1,5 @@
-export const ADD_PROMPT = 'ADD_PROMPT';
+export const ADD_MESSAGE = 'ADD_MESSAGE';
 
-export const addPrompt = (message) => {
-    return({type: ADD_PROMPT, payload:message});
+export const addMessage = (message) => {
+    return({type: ADD_MESSAGE, payload:message});
 }

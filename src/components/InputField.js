@@ -1,23 +1,56 @@
 import { useState } from 'react';
-import { addPrompt } from '../actions';
+import { addMessage } from '../actions';
 import { connect } from 'react-redux';
+import axiosWithAuth from '../utils/axiosWithAuth';
 import {BsFillArrowUpCircleFill} from 'react-icons/bs';
 import TextareaAutosize from 'react-textarea-autosize';
 
 const InputField = (props) => {
     const [prompt, setPrompt] = useState('');
+    const [result, setResult] = useState();
+    const {messages} = props;
 
     const handleChange = (e) => {
         setPrompt(e.target.value);
     }
 
-    const handleSubmit = (e) => {
+    const dataPrompt = {
+        prompt: generatePrompt(prompt, messages),
+        temperature: 0.9,
+        max_tokens: 60,
+        top_p: 1.0,
+        frequency_penalty: 0,
+        presence_penalty: 0.6,
+    }
+
+    function generatePrompt(message, messages) {
+    
+        const conversation = messages.map(message=> message.message).join('\n\n');
+      
+        return `The following is a conversation with an AI assistant named Jarvis. The assistant is helpful, creative, witty, and clever.
+    
+        \n\n${conversation}
+        \n\n${message}`;
+    }
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         //Send prompt axios call and push prompt to conversation state
-        props.addPrompt({
+        
+        axiosWithAuth()
+            .post('/', dataPrompt)
+                .then(res=>{
+                    console.log(res);;
+                }) 
+                .catch(err=>{
+                    console.log(err.response.data);
+                })   
+
+        props.addMessage({
             type: 'user',
             message: prompt
         })
+
         setPrompt('')
     }
 
@@ -34,4 +67,10 @@ const InputField = (props) => {
     )
 }
 
-export default connect(null, {addPrompt})(InputField);
+const mapStateToProps = (state) => {
+    return ({
+        messages: state.messages
+    });
+}
+
+export default connect(mapStateToProps, {addMessage})(InputField);
