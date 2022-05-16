@@ -4,8 +4,14 @@ const Messages = (props) => {
     const {messages} = props;
     localStorage.setItem("messages", JSON.stringify(messages));
 
+    //scrolls to bottom of chat on load
+    window.onload=function () {
+        const objDiv = document.getElementById("messages");
+        objDiv.scrollTop = objDiv.scrollHeight;
+    }
+
     return (
-        <div className={`relative w-full p-6 overflow-y-auto h-[476px] `}>
+        <div className={`relative w-full p-6 overflow-y-auto h-[476px] scroll-smooth`} id='messages'>
             {
                 messages.length > 0 &&
 
