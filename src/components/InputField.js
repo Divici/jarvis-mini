@@ -1,29 +1,19 @@
 import { useState } from 'react';
 import { addMessage } from '../actions';
 import { connect } from 'react-redux';
-import axiosWithAuth from '../utils/axiosWithAuth';
+import { Configuration, OpenAIApi } from "openai";
 import {BsFillArrowUpCircleFill} from 'react-icons/bs';
 import TextareaAutosize from 'react-textarea-autosize';
 
 const InputField = (props) => {
     const [prompt, setPrompt] = useState('');
-    const [result, setResult] = useState();
     const {messages} = props;
 
     const handleChange = (e) => {
         setPrompt(e.target.value);
     }
 
-    const dataPrompt = {
-        prompt: generatePrompt(prompt, messages),
-        temperature: 0.9,
-        max_tokens: 60,
-        top_p: 1.0,
-        frequency_penalty: 0,
-        presence_penalty: 0.6,
-    }
-
-    function generatePrompt(message, messages) {
+    function generatePrompt(message) {
     
         const conversation = messages.map(message=> message.message).join('\n\n');
       
@@ -35,16 +25,29 @@ const InputField = (props) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        //Send prompt axios call and push prompt to conversation state
-        
-        axiosWithAuth()
-            .post('/', dataPrompt)
-                .then(res=>{
-                    console.log(res);;
-                }) 
-                .catch(err=>{
-                    console.log(err.response.data);
-                })   
+       
+        const configuration = new Configuration({
+            apiKey: process.env.REACT_APP_OPENAI_API_KEY,
+        });
+        const openai = new OpenAIApi(configuration);
+          
+        openai.createCompletion("text-davinci-002", {
+            prompt: generatePrompt(prompt),
+            temperature: 0.9,
+            max_tokens: 100,
+            top_p: 1,
+            frequency_penalty: 0,
+            presence_penalty: 0.6,
+        })
+        .then(res=>{
+            props.addMessage({
+                type: 'openai',
+                message: res.data.choices[0].text
+            })
+        })
+        .catch(err=>{
+            console.log(err);
+        })
 
         props.addMessage({
             type: 'user',
