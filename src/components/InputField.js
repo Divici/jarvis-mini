@@ -13,12 +13,10 @@ const InputField = (props) => {
         setPrompt(e.target.value);
     }
 
-    function generatePrompt(message) {
-    
+    const generatePrompt = (message) => {
         const conversation = messages.map(message=> message.message).join('\n\n');
       
-        return `The following is a conversation with an AI assistant named Jarvis. The assistant is helpful, creative, witty, very friendly and clever.
-    
+        return `The following is a conversation with an AI assistant named Jarvis. The assistant is helpful, creative, witty, clever and likes to answer with friendly responses.
         \n\n${conversation}
         \n\n${message}`;
     }
@@ -39,10 +37,10 @@ const InputField = (props) => {
         openai.createCompletion("text-davinci-002", {
             prompt: generatePrompt(prompt),
             temperature: 0.9,
-            max_tokens: 100,
+            max_tokens: 150,
             top_p: 1,
-            frequency_penalty: 0,
-            presence_penalty: 0.6,
+            frequency_penalty: 0.4,
+            presence_penalty: 0.5,
         })
         .then(res=>{
             props.addMessage({
@@ -53,7 +51,7 @@ const InputField = (props) => {
         .catch(err=>{
             console.log(err);
         })
-
+    
         setPrompt('')
     }
 
