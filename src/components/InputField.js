@@ -18,7 +18,6 @@ const InputField = (props) => {
             type: 'user',
             message: prompt
         })
-        console.log(prompt);
         setPrompt('')
     }
 
