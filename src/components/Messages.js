@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 
 const Messages = (props) => {
     const {messages} = props;
+    localStorage.setItem("messages", JSON.stringify(messages));
 
     return (
         <div className={`relative w-full p-6 overflow-y-auto h-[476px] `}>
@@ -20,7 +21,7 @@ const Messages = (props) => {
                     }
                     else {
                         return (
-                            <div className="flex justify-start">
+                            <div className="flex justify-start" key={i}>
                                 <p className="relative max-w-xs my-2 px-4 py-2 text-white bg-gray-800 rounded-2xl shadow">
                                     {message.message}
                                 </p>

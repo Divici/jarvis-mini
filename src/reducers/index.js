@@ -1,7 +1,12 @@
 import { ADD_MESSAGE} from '../actions';
 
+let conversation = [];
+if(localStorage.messages){
+    conversation = JSON.parse(localStorage.messages).map(message=>message);
+}
+
 const initialState = {
-    messages: [],
+    messages: conversation,
 }
 
 const reducer = (state= initialState, action) => {

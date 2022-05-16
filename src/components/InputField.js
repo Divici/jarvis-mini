@@ -17,7 +17,7 @@ const InputField = (props) => {
     
         const conversation = messages.map(message=> message.message).join('\n\n');
       
-        return `The following is a conversation with an AI assistant named Jarvis. The assistant is helpful, creative, witty, and clever.
+        return `The following is a conversation with an AI assistant named Jarvis. The assistant is helpful, creative, witty, very friendly and clever.
     
         \n\n${conversation}
         \n\n${message}`;
@@ -26,6 +26,11 @@ const InputField = (props) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
        
+        props.addMessage({
+            type: 'user',
+            message: prompt
+        })
+        
         const configuration = new Configuration({
             apiKey: process.env.REACT_APP_OPENAI_API_KEY,
         });
@@ -47,11 +52,6 @@ const InputField = (props) => {
         })
         .catch(err=>{
             console.log(err);
-        })
-
-        props.addMessage({
-            type: 'user',
-            message: prompt
         })
 
         setPrompt('')
